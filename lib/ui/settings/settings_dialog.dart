@@ -541,11 +541,11 @@ class _ProfileTab extends ConsumerWidget {
         const SizedBox(height: 20),
         _SectionHeader('Footer Segments', theme),
         const SizedBox(height: 8),
-        _SegmentToggle('shell', 'Shell Name', settings, ref, theme),
-        _SegmentToggle('proxy', 'Proxy Status', settings, ref, theme),
-        _SegmentToggle('ip', 'IP Address', settings, ref, theme),
-        _SegmentToggle('cwd', 'Working Directory', settings, ref, theme),
-        _SegmentToggle('env_count', 'Env Var Count', settings, ref, theme),
+        _segmentToggle('shell', 'Shell Name', settings, ref, theme),
+        _segmentToggle('proxy', 'Proxy Status', settings, ref, theme),
+        _segmentToggle('ip', 'IP Address', settings, ref, theme),
+        _segmentToggle('cwd', 'Working Directory', settings, ref, theme),
+        _segmentToggle('env_count', 'Env Var Count', settings, ref, theme),
       ],
     );
   }
@@ -610,7 +610,7 @@ class _ProfileTab extends ConsumerWidget {
     );
   }
 
-  Widget _SegmentToggle(String id, String label, AppSettings settings,
+  Widget _segmentToggle(String id, String label, AppSettings settings,
       WidgetRef ref, HiTerminalTheme theme) {
     final enabled = settings.footerSegments.contains(id);
     return Padding(
@@ -804,7 +804,8 @@ class _ToggleSetting extends StatelessWidget {
           Switch(
             value: value,
             onChanged: onChanged,
-            activeColor: theme.statusBarAccent,
+            activeTrackColor: theme.statusBarAccent,
+            activeThumbColor: theme.tabActiveText,
           ),
         ],
       ),

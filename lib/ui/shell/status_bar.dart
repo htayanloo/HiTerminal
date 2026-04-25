@@ -365,7 +365,7 @@ class _StatusBarState extends ConsumerState<StatusBar> {
         );
       }).toList(),
     ).then((selectedId) {
-      if (selectedId != null) {
+      if (selectedId != null && context.mounted) {
         ref.read(themeProvider.notifier).setTheme(selectedId);
         HiToast.show(context, 'Theme: ${BuiltInThemes.getById(selectedId).name}',
             icon: Icons.palette);

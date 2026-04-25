@@ -139,10 +139,10 @@ class _EnvViewerDialogState extends State<EnvViewerDialog> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: t.statusBarAccent.withOpacity(0.1),
+                  color: t.statusBarAccent.withAlpha(25),
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
-                      color: t.statusBarAccent.withOpacity(0.3)),
+                      color: t.statusBarAccent.withAlpha(77)),
                 ),
                 child: Row(
                   children: [
@@ -176,11 +176,11 @@ class _EnvViewerDialogState extends State<EnvViewerDialog> {
                         horizontal: 12, vertical: 5),
                     decoration: BoxDecoration(
                       color: isProxy
-                          ? t.statusBarAccent.withOpacity(0.05)
+                          ? t.statusBarAccent.withAlpha(13)
                           : null,
                       border: Border(
                         bottom: BorderSide(
-                            color: t.panelBorderInactive.withOpacity(0.2)),
+                            color: t.panelBorderInactive.withAlpha(51)),
                       ),
                     ),
                     child: Row(
@@ -224,7 +224,7 @@ class _EnvViewerDialogState extends State<EnvViewerDialog> {
                           child: SelectableText(
                             entry.value,
                             style: TextStyle(
-                              color: t.statusBarForeground.withOpacity(0.8),
+                              color: t.statusBarForeground.withAlpha(204),
                               fontSize: 11,
                               fontFamily: 'monospace',
                             ),

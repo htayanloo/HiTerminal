@@ -57,7 +57,7 @@ class PanelContextMenu {
             'Ctrl+Shift+Y', theme),
       ],
     ).then((value) {
-      if (value == null) return;
+      if (value == null || !context.mounted) return;
       switch (value) {
         case 'split_h':
           notifier.setActivePanel(panelId);
@@ -66,21 +66,20 @@ class PanelContextMenu {
           notifier.setActivePanel(panelId);
           notifier.splitPanel(Axis.vertical);
         case 'rename':
-          // Trigger rename via a callback — handled by panel title bar
-          _startRename(context, ref, panelId, theme);
+          if (context.mounted) _startRename(context, ref, panelId, theme);
         case 'close':
           notifier.closePanel(panelId);
         case 'copy':
-          _copySelection(context, ref, panelId);
+          if (context.mounted) _copySelection(context, ref, panelId);
         case 'paste':
-          _pasteToTerminal(context, ref, panelId);
+          if (context.mounted) _pasteToTerminal(context, ref, panelId);
         case 'clear':
           _clearTerminal(ref, panelId);
-          HiToast.show(context, 'Terminal cleared', icon: Icons.cleaning_services);
+          if (context.mounted) HiToast.show(context, 'Terminal cleared', icon: Icons.cleaning_services);
         case 'env':
-          _showEnvDialog(context, ref, theme);
+          if (context.mounted) _showEnvDialog(context, ref, theme);
         case 'history':
-          showHistoryViewer(context);
+          if (context.mounted) showHistoryViewer(context);
       }
     });
   }
@@ -177,20 +176,22 @@ class PanelContextMenu {
     final panel = tabState.activeTab.panels[panelId];
     if (panel == null) return;
     final text = panel.session.terminal.buffer.getText();
-    if (text != null && text.isNotEmpty) {
+    if (text.isNotEmpty) {
       Clipboard.setData(ClipboardData(text: text));
       HiToast.show(context, 'Copied to clipboard', icon: Icons.copy);
     }
   }
 
-  static void _pasteToTerminal(BuildContext context, WidgetRef ref, String panelId) async {
+  static Future<void> _pasteToTerminal(BuildContext context, WidgetRef ref, String panelId) async {
     final tabState = ref.read(tabListProvider);
     final panel = tabState.activeTab.panels[panelId];
     if (panel == null) return;
     final data = await Clipboard.getData(Clipboard.kTextPlain);
     if (data?.text != null) {
       panel.session.terminal.paste(data!.text!);
-      HiToast.show(context, 'Pasted', icon: Icons.paste);
+      if (context.mounted) {
+        HiToast.show(context, 'Pasted', icon: Icons.paste);
+      }
     }
   }
 

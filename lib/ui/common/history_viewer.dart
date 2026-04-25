@@ -325,7 +325,7 @@ class _HistoryViewerDialogState extends ConsumerState<_HistoryViewerDialog>
   void _showSessionCommands(
       BuildContext context, SessionInfo session, HiTerminalTheme theme) async {
     final commands = await _historyManager.loadCommands(session.commandFile);
-    if (!mounted) return;
+    if (!context.mounted) return;
 
     showDialog(
       context: context,
